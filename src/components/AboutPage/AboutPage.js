@@ -8,7 +8,7 @@ import React from 'react';
 const AboutPage = () => (
   <div className="container">
     <div>
-      <h1>Retirement Checkup</h1>
+      <h1>About Page</h1>
       <h3>What is it?</h3>
       <p>Retirement Checkup is a self-contained application 
         designed to provide you, the user, with a snapshot of how you are doing in planning for your retirement. 

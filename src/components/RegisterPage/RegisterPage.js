@@ -9,6 +9,7 @@ class RegisterPage extends Component {
   state = {
     username: '',
     password: '',
+    email: '',
   };
 
   render() {
@@ -21,7 +22,7 @@ class RegisterPage extends Component {
             type="button"
             className="btn btn_asLink"
             onClick={() => {
-              this.props.history.push('/login');
+              this.props.history.push('/assets');
             }}
           >
             Login

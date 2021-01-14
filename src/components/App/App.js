@@ -19,6 +19,11 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import ResetPage from '../ResetPage/ResetPage';
+import ResetLinkPage from '../resetLinkPage/ResetLinkPage'
+import AssetPage from '../AssetPage/AssetPage'
+import LiabilityPage from '../LiabilityPage/LiabilityPage'
+import Dashboard from '../Dashboard/Dashboard'
 
 import './App.css';
 
@@ -84,6 +89,21 @@ class App extends Component {
               authRedirect="/user"
             />
             <ProtectedRoute
+              exact
+              path="/assets"
+              component={AssetPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/liabilities"
+              component={LiabilityPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/dashboard"
+              component={Dashboard}
+            />
+            <ProtectedRoute
               // with authRedirect:
               // - if logged in, redirects to "/user"
               // - else shows LandingPage at "/home"
@@ -92,9 +112,24 @@ class App extends Component {
               component={LandingPage}
               authRedirect="/user"
             />
-
-            {/* If none of the other routes matched, we will show a 404. */}
-            <Route render={() => <h1>404</h1>} />
+            <Route
+              // with authRedirect:
+              // - if logged in, redirects to "/user"
+              // - else shows LandingPage at "/home"
+              exact
+              path="/forgotpassword"
+              component={ResetPage}
+              authRedirect="/user"
+            />
+            <Route
+              // with authRedirect:
+              // - if logged in, redirects to "/user"
+              // - else shows LandingPage at "/home"
+              exact
+              path="/resetpassword"
+              component={ResetLinkPage}
+              authRedirect="/user"
+            />
           </Switch>
           <Footer />
         </div>

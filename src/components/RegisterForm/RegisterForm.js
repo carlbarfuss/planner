@@ -6,18 +6,29 @@ class RegisterForm extends Component {
   state = {
     username: '',
     password: '',
+    email: '',
   };
+
+  validateEmail = (email) => {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+      return (true)
+    }
+    alert("Please enter a valid email address!")
+    return (false)
+  }
 
   registerUser = (event) => {
     event.preventDefault();
-
-    this.props.dispatch({
-      type: 'REGISTER',
-      payload: {
-        username: this.state.username,
-        password: this.state.password,
-      },
-    });
+    if (this.validateEmail(this.state.email)) {
+      this.props.dispatch({
+        type: 'REGISTER',
+        payload: {
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email
+        },
+      });
+    }
   }; // end registerUser
 
   handleInputChangeFor = (propertyName) => (event) => {
@@ -56,6 +67,18 @@ class RegisterForm extends Component {
               value={this.state.password}
               required
               onChange={this.handleInputChangeFor('password')}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={this.state.email}
+              required
+              onChange={this.handleInputChangeFor('email')}
             />
           </label>
         </div>
