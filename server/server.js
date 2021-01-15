@@ -11,6 +11,7 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const resetRouter = require('./routes/reset.router');
+const dashboardRouter = require('./routes/dashboard.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -26,6 +27,7 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/reset', resetRouter)
+app.use('/api/dashboard', dashboardRouter)
 
 // Serve static files
 app.use(express.static('build'));

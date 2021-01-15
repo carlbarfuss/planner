@@ -1,0 +1,23 @@
+.grid {
+   display: grid;
+   grid-template-columns: 25% 25% 25% 25%;
+   grid-template-rows: auto;
+   grid-template-areas: 
+    "header header header header"
+    "main main main main"
+    "footer footer footer footer";
+}
+
+.card {
+   background-color: rgb(178, 206, 218);
+   height: 100px;
+   width: auto;
+   margin: 5%;
+   padding-top: 10%;
+   border: black;
+   border-style: solid;
+}
+
+.underline {
+   text-decoration: underline;
+}

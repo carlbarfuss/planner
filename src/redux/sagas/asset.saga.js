@@ -5,6 +5,7 @@ import axios from 'axios';
 function* registerUser(action) {
    try {
       yield axios.post('/api/user/register/assets', action.payload);
+      yield put( {type: 'FETCH_USER'} );
    } catch (error) {
       console.log('problem with Asset Info submission', error);
    }

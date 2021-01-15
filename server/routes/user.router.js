@@ -32,16 +32,7 @@ router.post('/register/assets', rejectUnauthenticated, (req, res) => {
   saved_monthly, inflation, withdrawlRate, rateOfReturn, req.user.id])
     .then((result) => {
       console.log("updated user Info:", result.rows);
-      const sqlText2 = `INSERT INTO "income_streams" (user_id, income_name, income_annual_value)
-                        VALUES($1, $2, $3)`
-      pool.query(sqlText2, [req.user.id, 'Social Security', SS])
-        .then( (result)=> {
-          res.sendStatus(201)
-        })//end .then
-        .catch((error) => {
-        console.log('error in POSTing to income_streams table,', error);
-        res.sendStatus(500)
-        })//end .catch
+      res.sendStatus(200)
     })//end .then
     .catch((error) => {
       console.log('error in setting User Assets', error);

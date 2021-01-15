@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import IncomeStream from '../IncomeStream/IncomeStream'
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -17,10 +18,20 @@ class AssetPage extends Component {
       inflation: 1.5,
       withdrawlRate: 4,
       rateOfReturn: 10,
-      incomeCount: '',
-      socialSecurity: ''
    };
 
+   componentDidMount(){
+      this.props.dispatch( {type: 'FETCH_USER' } )
+      this.setState({
+         age: this.props.store.user.age,
+         desired_income: this.props.store.user.target_income,
+         current_savings: this.props.store.user.savings,
+         saved_monthly: this.props.store.user.saved_monthly,
+         inflation: this.props.store.user.inflation_rate,
+         withdrawlRate: this.props.store.user.withdrawl_rate,
+         rateOfReturn: this.props.store.user.rate_of_return
+      })
+   }   
    handleChange = (event, input) => {
       this.setState({
          [input]: event.target.value
@@ -31,7 +42,6 @@ class AssetPage extends Component {
       console.log('clicked submit');
       this.props.dispatch( {type: "SUBMIT_ASSETS", payload: this.state})
       this.props.history.push('/liabilities')
-      //this.props.history.push('/expenses')
    }
    addIncome = () => {
       console.log('clicked addIncome');
@@ -51,35 +61,37 @@ class AssetPage extends Component {
                </label>
                   <br/>
                   <label>Current Age:
-                  <input required placeholder="Current Age" type="number" onChange={(event) => this.handleChange(event, 'age')}></input>
+                  <input required placeholder="Current Age" type="number" onChange={(event) => this.handleChange(event, 'age')} value={this.state.age}></input>
                   </label>
                   <br/>
                   { (this.state.retirement === 'standard') ?
                   ''
                   : <>
                   <label>Target Retirement Age:
-                  <input required placeholder="Target Retirment Age" onChange={(event) => this.handleChange(event, 'target_age')}></input>
+                  <input required placeholder="Target Retirment Age" onChange={(event) => this.handleChange(event, 'target_age')} ></input>
                   </label>
                   <br/>
                   </>
                   }
-               <label>Income Desired at retirement:
-               <input required placeholder="Income At Retirement" onChange={(event) => this.handleChange(event, 'desired_income')}></input><br/>
+               <label>Income Desired at retirement(today's dollars):
+               <input required placeholder="Income At Retirement" onChange={(event) => this.handleChange(event, 'desired_income')} value={this.state.desired_income}></input><br/>
                </label>
-               <label> Current Savings:
-               <input required placeholder="Current Savings" onChange={(event) => this.handleChange(event, 'current_savings')}></input><br/>
+               <label> Current Savings(in retirement accounts):
+               <input required placeholder="Current Savings" onChange={(event) => this.handleChange(event, 'current_savings')}
+                  value={this.state.current_savings}></input><br/>
                </label>
                <label> Additional Saved/Month:
                   <input 
                      required
                      placeholder="Additional Saved/Month" 
-                     onChange={(event) => this.handleChange(event, 'saved_monthly')}>
+                     onChange={(event) => this.handleChange(event, 'saved_monthly')}
+                     value={this.state.saved_monthly}>
                   </input>
                </label>
                <br/>
                <label>
                   Inflation Rate:
-                  <select name="inflation" id="inflation" onChange={(event) => this.handleChange(event, 'inflation')}>
+                  <select name="inflation" id="inflation" onChange={(event) => this.handleChange(event, 'inflation')} value={this.state.inflation}>
                      <option value="1.5">Standard (1.5%)</option>
                      <option value="2">Federal Reserve Target (2.0%)</option>
                      <option value="3">Higher (3.0%)</option>
@@ -102,23 +114,12 @@ class AssetPage extends Component {
                      <option value="8">8% (lower than expected)</option>
                   </select>
                </label><br/>
-               <h3>Income Sources in Retirement:</h3>
-               <button onClick={(event) => this.addIncome(event)}>+</button> <p>(STRETCH)</p><br/>
-               <label>
-                     Expected Social Security: 
-                     <input 
-                        type="number" 
-                        placeholder="24000"
-                        onChange={(event) => this.handleChange(event, 'socialSecurity')}>
-                     </input> <a href="https://www.ssa.gov/OACT/quickcalc/">SS Calculator Link</a>
-               </label> 
-               <br/>
-               <br/>
-
-
-               <button onClick={(event) => this.submitAssets(event)}>Next</button>                
                </center>
             </form>
+            <IncomeStream/>
+            <center>
+            <button onClick={(event) => this.submitAssets(event)}>Next</button>                
+            </center>
          </div>
       );
    }

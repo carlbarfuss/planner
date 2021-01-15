@@ -28,6 +28,7 @@ class RegisterForm extends Component {
           email: this.state.email
         },
       });
+      window.location = ('localhost:3000/#/assets')
     }
   }; // end registerUser
 
