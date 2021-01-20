@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import './incomeStream.css'
+import FormHelperText from '@material-ui/core/FormHelperText';
+import TextField from '@material-ui/core/TextField';
+import { FormControl } from '@material-ui/core'
+import Button from '@material-ui/core/Button';
 
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name TemplateClass with the name for the new
-// component.
 class IncomeStream extends Component {
    state = {
          name: '',
@@ -18,7 +18,6 @@ class IncomeStream extends Component {
       this.props.dispatch( {type: 'FETCH_INCOME'} )
    }
   
-
    handleChange = (event, input) => {
       this.setState({
          [input]: event.target.value
@@ -32,6 +31,7 @@ class IncomeStream extends Component {
       this.props.dispatch({ type: 'FETCH_INCOME' })
       window.location.reload();
    }
+
    addIncome = () => {
       if (this.state.name && this.state.value) {
          this.props.dispatch( {type: 'ADD_INCOME', payload: this.state} )
@@ -42,7 +42,6 @@ class IncomeStream extends Component {
          })
          window.location.reload();
       }
-      console.log('clicked addIncome');
    }
 
    render() {
@@ -50,17 +49,28 @@ class IncomeStream extends Component {
          <div>
                <center>
                   <h3>Income Sources in Retirement:</h3>
-                  <p><small>*Input current annual value of any income streams you wish to add</small></p>
+                  <FormControl>
                   <input placeholder="New Income Name" type="text" value={this.state.name} onChange={(event) => this.handleChange(event, 'name')}></input>
+                  <FormHelperText>*Input current annual value of any income streams you wish to add</FormHelperText>
+                  </FormControl>
+                  <FormControl>
                   <input placeholder="Annual Income Value" type="number" value={this.state.value} onChange={(event) => this.handleChange(event, 'value')}></input>
-                  <button onClick={(event) => this.addIncome(event)}>+</button> 
+                  </FormControl>
+                  <Button 
+                  onClick={(event) => this.addIncome(event)}
+                  variant="contained"
+                  color="primary"
+                  >+</Button> 
                   <br />
                   {this.props.store.incomeReducer.map( (item, i) => 
                   <div key={item.id}>
                      <ul>
                         <li>
                            {item.income_name}:  ${item.income_annual_value}
-                           <button onClick={(event) => this.deleteIncome(event, item.id)}>Delete</button>
+                           <Button onClick={(event) => this.deleteIncome(event, item.id)}
+                           variant="contained"
+                           color="secondary"
+                           >Delete</Button>
                         </li>
                      </ul> 
                   </div>)}
