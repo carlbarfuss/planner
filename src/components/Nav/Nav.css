@@ -10,6 +10,7 @@
   margin: 0 0 30px;
   background-color: #000000;
   overflow: hidden;
+  text-align: left;
 }
 
 .nav-link {

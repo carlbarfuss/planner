@@ -7,6 +7,8 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import './UserInfoForm.css'
 
 class UserInfoForm extends Component {
 
@@ -39,6 +41,7 @@ class UserInfoForm extends Component {
    render() {
       return (
          <center>
+            <Paper className="paper">
                <FormControl>
                   <h3>User Info:</h3>
                   <TextField id="outlined-basic" label="Current Age"
@@ -74,11 +77,11 @@ class UserInfoForm extends Component {
                      required type="number" onChange={(event) => this.handleChange(event, 'desired_income')}
                      value={this.state.desired_income} variant="outlined" />
                   <FormHelperText>Rule of thumb is about 80% of what you currently use is a good starting point</FormHelperText><br />
-                  <TextField id="standard-basic" label="Current Savings(in retirement accounts"
+                  <TextField id="standard-basic2" label="Current Savings(in retirement accounts"
                      required type="number" onChange={(event) => this.handleChange(event, 'current_savings')}
                      value={this.state.current_savings} variant="outlined" />
                   <FormHelperText>Include 401k, Roth IRA, and any other retirement savings platform</FormHelperText><br />
-                  <TextField id="standard-basic" label="Additional Saved/Month:"
+                  <TextField id="standard-basic3" label="Additional Saved/Month:"
                      required type="number" onChange={(event) => this.handleChange(event, 'saved_monthly')}
                      value={this.state.saved_monthly} variant="outlined" /> <br />
                   <FormControl>
@@ -123,7 +126,9 @@ class UserInfoForm extends Component {
                      <FormHelperText>Rate of Return for Investments</FormHelperText><br />
                   </FormControl>
                <Button onClick={(event) => this.submitAssets(event)} variant="contained" color="primary">Save Values</Button>
+               <br/>
                </FormControl>
+            </Paper>
          </center>
       )
 

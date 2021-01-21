@@ -66,6 +66,26 @@ class LoginForm extends Component {
         <div>
           <input className="btn" type="submit" name="submit" value="Log In" />
         </div>
+        <button
+          type="button"
+          className="btn btn_asLink"
+          onClick={() => {
+            this.props.history.push('/registration');
+          }}
+        >
+          Register
+          </button>
+        <br />
+        <br />
+        <button
+          type="button"
+          className="btn btn_asLink"
+          onClick={() => {
+            this.props.history.push('/forgotpassword');
+          }}
+        >
+          Trouble Logging In?
+          </button>
       </form>
     );
   }

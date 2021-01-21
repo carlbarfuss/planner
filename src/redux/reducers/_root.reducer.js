@@ -4,7 +4,7 @@ import user from './user.reducer';
 import dashboardReducer from './dashboard.reducer';
 import assetReducer from './assets.reducer';
 import fedDataReducer from './feddata.reducer';
-import liabilitiesReducer from './liabilities.reducer'
+import expenseReducer from './liabilities.reducer'
 import incomeReducer from './income.reducer'
 
 // rootReducer is the primary reducer for our entire project
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   dashboardReducer,
   assetReducer,
   fedDataReducer,
-  liabilitiesReducer,
+  expenseReducer,
   incomeReducer,
 });
 

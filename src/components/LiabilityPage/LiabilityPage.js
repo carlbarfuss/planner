@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import LiabilityForm from '../LiabilityForm/LiabilityForm'
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -11,17 +12,23 @@ class LiabilityPage extends Component {
       heading: 'Class Component',
    };
 
-   onSubmit = (event) => {
-      this.props.history.push('/dashboard')
+   componentDidMount(){
+      this.props.dispatch( {type: 'FETCH_EXPENSES' })
    }
+
+
+
    render() {
       return (
          <div>
             <center>
             <h3>
-                  Liabilities Page (Stretch)
+               <form className="formPanel">
+                  <LiabilityForm />
+
+               </form>
             </h3>
-            <button onClick={(event) => this.onSubmit(event)}>Next</button>
+            
             </center>
          </div>
       );

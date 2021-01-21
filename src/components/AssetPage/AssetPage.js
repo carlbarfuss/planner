@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import IncomeStream from '../IncomeStream/IncomeStream'
 import UserInfoForm from '../UserInfoForm/UserInfoForm'
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper'
+import './AssetPage.css'
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -10,9 +13,9 @@ import UserInfoForm from '../UserInfoForm/UserInfoForm'
 // component.
 class AssetPage extends Component {
 
-   componentDidMount(){
-      this.props.dispatch( {type: 'FETCH_USER' } )
-   }  
+   componentDidMount() {
+      this.props.dispatch({ type: 'FETCH_USER' })
+   }
 
    handleChange = (event, input) => {
       this.setState({
@@ -23,19 +26,25 @@ class AssetPage extends Component {
    goToLiabilities = () => {
       this.props.history.push('/liabilities')
    }
-   
+
    addIncome = () => {
       console.log('clicked addIncome');
    }
 
    render() {
       return (
-         <div>
+         <div className="assetPage">
             <UserInfoForm />
-            <IncomeStream/>
-            <center>     
-               <button onClick={this.goToLiabilities}>Next</button>        
-            </center>
+            <Paper className="paper">
+               <IncomeStream />
+               <Button
+                  onClick={this.goToLiabilities}
+                  variant="contained"
+                  color="primary"
+               >Next</Button>
+               <br/>
+               <br/>
+            </Paper>
          </div>
       );
    }

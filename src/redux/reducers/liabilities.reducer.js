@@ -1,6 +1,6 @@
-const liabilitiesReducer = (state = [], action) => {
+const expenseReducer = (state = [], action) => {
    switch (action.type) {
-      case 'SET_LIABILITIES':
+      case 'SET_EXPENSES':
          return action.payload;
       default:
          return state;
@@ -9,4 +9,4 @@ const liabilitiesReducer = (state = [], action) => {
 
 // user will be on the redux state at:
 // state.user
-export default liabilitiesReducer;
+export default expenseReducer;

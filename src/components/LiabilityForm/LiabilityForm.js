@@ -8,17 +8,17 @@ import { FormControl } from '@material-ui/core'
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input'
 
-class IncomeStream extends Component {
+class LiabilityForm extends Component {
    state = {
-         name: '',
-         value: '',
+      name: '',
+      value: '',
    };
 
-   componentDidMount(){
+   componentDidMount() {
       console.log('inIncomeSources');
-      this.props.dispatch( {type: 'FETCH_INCOME'} )
+      this.props.dispatch({ type: 'FETCH_INCOME' })
    }
-  
+
    handleChange = (event, input) => {
       this.setState({
          [input]: event.target.value
@@ -26,17 +26,17 @@ class IncomeStream extends Component {
    }
 
    deleteIncome = (event, id) => {
-      let idToSend = {id: id} 
+      let idToSend = { id: id }
       console.log('clicked to delete Item: ', id);
-      this.props.dispatch( {type: 'DELETE_INCOME', payload: idToSend})
-      this.props.dispatch({ type: 'FETCH_INCOME' })
+      this.props.dispatch({ type: 'DELETE_EXPENSE', payload: idToSend })
+      this.props.dispatch({ type: 'FETCH_EXPENSE' })
       window.location.reload();
    }
 
-   addIncome = () => {
+   addExpense = () => {
       if (this.state.name && this.state.value) {
-         this.props.dispatch( {type: 'ADD_INCOME', payload: this.state} )
-         this.props.dispatch({ type: 'FETCH_INCOME' })
+         this.props.dispatch({ type: 'ADD_EXPENSE', payload: this.state })
+         this.props.dispatch({ type: 'FETCH_EXPENSE' })
          this.setState({
             name: '',
             value: ''
@@ -45,54 +45,58 @@ class IncomeStream extends Component {
       }
    }
 
+   onSubmit = (event) => {
+      this.props.history.push('/dashboard')
+   }
+
    render() {
       return (
          <div>
-               <center>
-                  <h3 className="padding-top">Income Sources in Retirement:</h3>
-                  <TextField
+            <center>
+               <h3>Expenses</h3>
+               <TextField
                   id="outlined-helperText"
-                  label="New Income Name"
-                  value={this.state.name} 
+                  label="New Expense Name"
+                  value={this.state.name}
                   margin="normal"
                   variant="outlined"
                   onChange={(event) => this.handleChange(event, 'name')}
-                  />
-                  <TextField
+               />
+               <TextField
                   id="outlined-helperText2"
-                  label="New Income Value"
+                  label="Annual Cost"
                   value={this.state.value}
                   margin="normal"
                   variant="outlined"
                   onChange={(event) => this.handleChange(event, 'value')}
-                  />
-                  <br/>
-                  <Button 
-                  onClick={(event) => this.addIncome(event)}
+               />
+               <br />
+               <Button
+                  onClick={(event) => this.addExpense(event)}
                   variant="contained"
                   color="primary"
-                  >+</Button> 
-                  <br />
-                  {this.props.store.incomeReducer.map( (item, i) => 
+               >+</Button>
+               <br />
+               {this.props.store.expenseReducer?.map((item, i) =>
                   <div key={item.id}>
                      <ul>
                         <li>
-                           {item.income_name}:  ${item.income_annual_value}
-                           <Button className="dlt-btn" onClick={(event) => this.deleteIncome(event, item.id)}
-                           variant="contained"
-                           color="secondary"
+                           {item.liability_name}:  ${item.liability_annual_cost}
+                           <Button onClick={(event) => this.deleteIncome(event, item.id)}
+                              variant="contained"
+                              color="secondary"
                            >Delete</Button>
                         </li>
-                     </ul> 
+                     </ul>
                   </div>)}
-                  <a href="https://www.ssa.gov/OACT/quickcalc/">SS Calculator Link</a>
-                  <br />
-                  <br />
-               </center>
-            
+               <br />
+               <br />
+               <button onClick={(event) => this.onSubmit(event)}>Next</button>
+            </center>
+
          </div>
       );
    }
 }
 
-export default connect(mapStoreToProps)(IncomeStream);
+export default connect(mapStoreToProps)(LiabilityForm);

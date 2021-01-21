@@ -24,7 +24,7 @@ router.post('/income', rejectUnauthenticated, (req,res) => {
          console.log("error INSERTING income stream,", error);
       })
 })
-
+//deletes an income stream from the incomes database
 router.delete('/income/:id', rejectUnauthenticated, (req, res) => {
    console.log('in DELETE', req.params.id);
    const sqlText = `DELETE FROM income_streams WHERE id=$1`;
@@ -35,7 +35,7 @@ router.delete('/income/:id', rejectUnauthenticated, (req, res) => {
    console.log("error DELETING income stream,", error);
 })
 })
-
+//to be implemented later
 router.put('/income', rejectUnauthenticated, (req, res) => {
    const sqlText = ``;
    pool.query(sqlText, [req.body.id])
@@ -59,9 +59,10 @@ router.get('/expenses', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/expenses', rejectUnauthenticated, (req, res) => {
+   console.log(req.body);
    const sqlText = `INSERT INTO expenses ("user_id", "liability_name", "liability_annual_cost")
    VALUES ($1, $2, $3)`
-   pool.query(sqlText, [req.user.id, req.body.name, req.body.cost])
+   pool.query(sqlText, [req.user.id, req.body.name, req.body.value])
       .then((response) => {
          res.sendStatus(201)
       }).catch((error) => {
