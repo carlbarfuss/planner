@@ -3,7 +3,8 @@ ul {
 }
 
 button {
-   margin: 5px
+   margin: 5px;
+   font-size: initial;
 }
 
 h3 {
@@ -23,4 +24,8 @@ select {
 }
 Input {
    margin: 5px;
+}
+div {
+   font-weight: normal;
+   font-size: initial;
 }

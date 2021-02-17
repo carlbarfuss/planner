@@ -15,7 +15,7 @@ class Dashboard extends Component {
       this.props.dispatch( {type: 'FETCH_USER'})
       this.props.dispatch( {type: 'FETCH_FEDDATA'})
       this.props.dispatch( {type: 'FETCH_INCOME'})
-      this.props.dispatch( {type: 'FETCH_LIABILITIES'})
+      this.props.dispatch( {type: 'FETCH_EXPENSES'})
    }
 
 

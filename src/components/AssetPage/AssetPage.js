@@ -35,7 +35,7 @@ class AssetPage extends Component {
       return (
          <div className="assetPage">
             <UserInfoForm />
-            <Paper className="paper">
+            <div className="formPanel">
                <IncomeStream />
                <Button
                   onClick={this.goToLiabilities}
@@ -44,7 +44,7 @@ class AssetPage extends Component {
                >Next</Button>
                <br/>
                <br/>
-            </Paper>
+            </div>
          </div>
       );
    }

@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import './incomeStream.css'
-import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '@material-ui/core/TextField';
-import { FormControl } from '@material-ui/core'
 import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input'
+
 
 class IncomeStream extends Component {
    state = {
@@ -74,17 +72,13 @@ class IncomeStream extends Component {
                   >+</Button> 
                   <br />
                   {this.props.store.incomeReducer.map( (item, i) => 
-                  <div key={item.id}>
-                     <ul>
-                        <li>
-                           {item.income_name}:  ${item.income_annual_value}
+                  <p key={item.id}>
+                           {item.income_name}:  ${item.income_annual_value} &nbsp;
                            <Button className="dlt-btn" onClick={(event) => this.deleteIncome(event, item.id)}
                            variant="contained"
                            color="secondary"
                            >Delete</Button>
-                        </li>
-                     </ul> 
-                  </div>)}
+                  </p>)}
                   <a href="https://www.ssa.gov/OACT/quickcalc/">SS Calculator Link</a>
                   <br />
                   <br />

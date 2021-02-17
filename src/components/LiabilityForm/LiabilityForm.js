@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import './incomeStream.css'
-import FormHelperText from '@material-ui/core/FormHelperText';
 import TextField from '@material-ui/core/TextField';
-import { FormControl } from '@material-ui/core'
 import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input'
+
 
 class LiabilityForm extends Component {
    state = {
@@ -45,14 +43,11 @@ class LiabilityForm extends Component {
       }
    }
 
-   onSubmit = (event) => {
-      this.props.history.push('/dashboard')
-   }
+ 
 
    render() {
       return (
          <div>
-            <center>
                <h3>Expenses</h3>
                <TextField
                   id="outlined-helperText"
@@ -77,23 +72,17 @@ class LiabilityForm extends Component {
                   color="primary"
                >+</Button>
                <br />
+               <br/>
                {this.props.store.expenseReducer?.map((item, i) =>
                   <div key={item.id}>
-                     <ul>
-                        <li>
-                           {item.liability_name}:  ${item.liability_annual_cost}
+                           {item.liability_name}:  ${item.liability_annual_cost} &nbsp;
                            <Button onClick={(event) => this.deleteIncome(event, item.id)}
                               variant="contained"
                               color="secondary"
-                           >Delete</Button>
-                        </li>
-                     </ul>
+                           >Delete</Button> <br/><br/>
                   </div>)}
                <br />
                <br />
-               <button onClick={(event) => this.onSubmit(event)}>Next</button>
-            </center>
-
          </div>
       );
    }

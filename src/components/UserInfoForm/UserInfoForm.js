@@ -41,7 +41,7 @@ class UserInfoForm extends Component {
    render() {
       return (
          <center>
-            <Paper className="paper">
+            <div className="formPanel">
                <FormControl>
                   <h3>User Info:</h3>
                   <TextField id="outlined-basic" label="Current Age"
@@ -128,7 +128,7 @@ class UserInfoForm extends Component {
                <Button onClick={(event) => this.submitAssets(event)} variant="contained" color="primary">Save Values</Button>
                <br/>
                </FormControl>
-            </Paper>
+            </div>
          </center>
       )
 

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import './SelfCompare.css'
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 let savings = 0;
 let yearsUntilRetirement = 0;
@@ -10,32 +13,34 @@ let rateOfReturn = 0;
 let monthlySavings = 0;
 let withdrawlRate = 0;
 
-
+//calculates rate of return based on RoR set in the user profile
 let calcReturn = (num) => {
-   for (let i=1; i<yearsUntilRetirement; i++) {
-      num = (num+(12*monthlySavings))*(1+rateOfReturn/100)
+   for (let i = 1; i < yearsUntilRetirement; i++) {
+      num = (num + (12 * monthlySavings)) * (1 + rateOfReturn / 100)
    }
    return parseFloat(num).toFixed(2);
 }
-
+//calculates annual income based on withdrawl rate and savings levels
 let futureIncome = (savings) => {
-   return parseFloat(calcReturn(savings) * withdrawlRate / 100).toFixed(2) 
+   return parseFloat(calcReturn(savings) * withdrawlRate / 100).toFixed(2)
 }
 
+//Sums together income streams to display a single value
 let addIncomes = (incomeReducer) => {
    console.log('incomeReducer is:', incomeReducer);
    let total = Number(futureIncome(savings));
-   for (let i=0; i<incomeReducer.length; i++){     
+   for (let i = 0; i < incomeReducer.length; i++) {
       total = total + Number(incomeReducer[i].income_annual_value)
    }
-   return parseFloat(total).toFixed(2) 
+   return parseFloat(total).toFixed(2)
 }
 
+//calculates inflation on a set value over the course of the designated set of years
 let calcInflation = (num) => {
    for (let i = 1; i < yearsUntilRetirement; i++) {
-      num = (num*(1+inflation/100))
+      num = (num * (1 + inflation / 100))
    }
-   return parseFloat(num).toFixed(2) 
+   return parseFloat(num).toFixed(2)
 }
 
 
@@ -50,7 +55,7 @@ class SelfCompare extends Component {
       withdrawlRate: ''
    }
 
-   componentDidMount(){
+   componentDidMount() {
       savings = this.props.store.user.savings;
       yearsUntilRetirement = (this.props.store.user.retirement_age - this.props.store.user.age);
       inflation = this.props.store.user.inflation_rate;
@@ -61,20 +66,43 @@ class SelfCompare extends Component {
 
    render() {
       return (
-         <div>
-            <h2 className="underline">How healthy am I compared to my own goals?</h2>
-         <container className="grid">
-            <div className="card">% towards goal: <br/><br/> {parseFloat(addIncomes(this.props.store.incomeReducer) / calcInflation(this.props.store.user.target_income) * 100).toFixed(2)}%</div>
-            <div className="card">Target Retirement Year: <br/><br/>{new Date().getFullYear() + yearsUntilRetirement}</div>
-            <div className="card">Current Savings: <br/><br/> ${parseFloat(savings).toFixed(2)}</div>
-            <div className="card">Savings at Retirement: <br/><br/> ${calcReturn(savings)}</div>
-            <div className="card">{withdrawlRate}% Withdrawl Rate:  <br/><br/>${futureIncome(savings)}/year from savings</div>
-            {this.props.store.incomeReducer.map ( (item) => 
-               <div className="card" key={item.id}>{item.income_name}: <br/><br/> {item.income_annual_value}/year</div>
-            )}
-            <div className="card">Total Retirement Income:  <br/><br/>${addIncomes(this.props.store.incomeReducer)}</div>
-            <div className="card">Desired Income(inflation adjusted): <br/><br/> ${calcInflation(this.props.store.user.target_income)}</div>
-         </container>
+         <div className="formPanel">
+            <h2>How healthy am I compared to my own goals?</h2>
+            <Card className="card">
+               <CardContent>
+                  <Typography variant="h6" component="h2">
+                     {parseFloat(addIncomes(this.props.store.incomeReducer) / calcInflation(this.props.store.user.target_income) * 100).toFixed(2)}% of goal reached
+                  </Typography>
+                  <Typography
+                     color="textSecondary" gutterBottom>
+                     Target Retirement Year: {new Date().getFullYear() + yearsUntilRetirement}
+                  </Typography>
+               </CardContent>
+            </Card>
+            <Card className="card">
+               <CardContent>
+                  <Typography
+                     color="textSecondary" gutterBottom>
+                     Current Savings: ${parseFloat(savings).toFixed(2)}
+                  </Typography>
+                  <Typography
+                     color="textSecondary" gutterBottom>
+                     Savings at Retirement: ${calcReturn(savings)}
+                  </Typography>
+               </CardContent>
+            </Card>
+            <Card className="card">
+               <CardContent>
+                  <Typography
+                     color="textSecondary" gutterBottom>
+                     Target Income(IA): ${calcInflation(this.props.store.user.target_income)}
+                  </Typography>
+                  <Typography
+                     color="textSecondary" gutterBottom>
+                     Calculated Income(IA):  ${addIncomes(this.props.store.incomeReducer)}
+                  </Typography>
+               </CardContent>
+            </Card>
          </div>
       );
    }
